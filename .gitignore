@@ -1,7 +1,10 @@
 HELP.md
 .gradle
+# Cache of project
+.gradletasknamecache
 build/
 !gradle/wrapper/gradle-wrapper.jar
+/gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 target/
