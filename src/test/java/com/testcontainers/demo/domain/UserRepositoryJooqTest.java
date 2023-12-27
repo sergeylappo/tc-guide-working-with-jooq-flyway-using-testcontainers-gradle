@@ -12,6 +12,7 @@ import org.springframework.test.context.jdbc.Sql;
 @JooqTest(
   properties = {
     "spring.test.database.replace=none",
+//    Comment next line out if you want to reuse the testcontainer initially used for the build.
     "spring.datasource.url=jdbc:tc:postgresql:16-alpine:///db",
   }
 )

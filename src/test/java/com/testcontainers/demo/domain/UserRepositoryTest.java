@@ -16,6 +16,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 class UserRepositoryTest {
 
+//  Comment this block out if you want to reuse the testcontainer initially used for the build.
   @Container
   @ServiceConnection
   static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
