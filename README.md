@@ -1,10 +1,10 @@
-# Working with jOOQ and Flyway using Testcontainers Guide
+# Working with jOOQ and Flyway using Testcontainers & Gradle Guide
 
-This is sample code for [Working with jOOQ and Flyway using Testcontainers](https://testcontainers.com/guides/working-with-jooq-flyway-using-testcontainers) guide.
+This is a fork of [an original](https://github.com/testcontainers/tc-guide-working-with-jooq-flyway-using-testcontainers) Flyway guide intended to show how to use Flyway with Gradle
+The only important changes are replacing the build configuration with Gradle.
 
 ## 1. Setup Environment
-Make sure you have Java 8+ and a [compatible Docker environment](https://www.testcontainers.org/supported_docker_environment/) installed.
-If you are going to use Maven build tool then make sure Java 17+ is installed.
+Make sure you have Java 17+ and a [compatible Docker environment](https://www.testcontainers.org/supported_docker_environment/) installed.
 
 For example:
 
@@ -39,7 +39,7 @@ cd tc-guide-working-with-jooq-flyway-using-testcontainers
 Run the command to run the tests.
 
 ```shell
-$ ./mvnw verify  //for Maven
+$ ./gradlew build  //for Gradle
 ```
 
 The tests should pass.
