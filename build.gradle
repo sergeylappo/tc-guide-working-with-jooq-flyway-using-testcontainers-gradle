@@ -3,7 +3,6 @@
  */
 
 
-import org.jooq.codegen.gradle.CodegenPluginExtension
 import org.testcontainers.containers.PostgreSQLContainer
 import org.gradle.api.services.BuildServiceParameters
 import org.gradle.api.services.BuildService
@@ -15,8 +14,8 @@ buildscript {
 
     dependencies {
 //      Required dependencies to start testcontainers and do the migration during the build.
-        classpath 'org.testcontainers:postgresql:1.19.3'
-        classpath 'org.flywaydb:flyway-database-postgresql:10.4.0'
+        classpath libs.testcontainers.postgres
+        classpath libs.flyway.postgresql
     }
 }
 
@@ -24,8 +23,8 @@ plugins {
     id 'java-library'
 
 //  Gradle plugins for jOOQ and Flyway.
-    id 'org.flywaydb.flyway' version '10.4.0'
-    id 'org.jooq.jooq-codegen-gradle' version '3.19.1'
+    alias(libs.plugins.flyway)
+    alias(libs.plugins.jooq)
 }
 
 repositories {
@@ -41,24 +40,24 @@ description = 'tc-guide-working-with-jooq-flyway-using-testcontainers-gradle'
 java.sourceCompatibility = 17
 
 dependencies {
-    implementation "org.springframework.boot:spring-boot-starter-jooq:$spring_boot_version"
+    implementation libs.spring.boot.jooq
 
 //  Dependencies required for the application to use jooq and flyway in runtime.
-    implementation "org.flywaydb:flyway-database-postgresql:$flyway_version"
-    implementation "org.jooq:jooq:$jooq_version"
+    implementation libs.flyway.postgresql
+    implementation libs.jooq.core
 
 //  Your database driver
-    runtimeOnly "org.postgresql:postgresql:$postgres_version"
+    runtimeOnly libs.postgresql
 //  Database driver for the build time.
-    jooqCodegen "org.postgresql:postgresql:$postgres_version"
+    jooqCodegen libs.postgresql
 
-    testImplementation "org.springframework.boot:spring-boot-devtools:$spring_boot_version"
-    testImplementation "org.springframework.boot:spring-boot-starter-test:$spring_boot_version"
-    testImplementation "org.springframework.boot:spring-boot-testcontainers:$spring_boot_version"
+    testImplementation libs.spring.boot.test.devtools
+    testImplementation libs.spring.boot.test.starter
+    testImplementation libs.spring.boot.test.testcontainers
 
-//  Testcontainer dependencies for the test tasks.
-    testImplementation "org.testcontainers:junit-jupiter:$testcontainers_version"
-    testImplementation "org.testcontainers:postgresql:$testcontainers_version"
+//  Testcontainers dependencies for the test tasks.
+    testImplementation libs.testcontainers.junit
+    testImplementation libs.testcontainers.postgres
 }
 
 // Here we register service for providing our database during the build.

@@ -3,3 +3,32 @@
  */
 
 rootProject.name = 'tc-guide-working-with-jooq-flyway-using-testcontainers-gradle'
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            version('flyway', '10.4.0')
+            version('testcontainers', '1.19.3')
+            version('jooq', '3.19.1')
+            version('spring-boot', '3.2.1')
+            version('postgresql', '42.7.1')
+
+            plugin('flyway', 'org.flywaydb.flyway').versionRef('flyway')
+            plugin('jooq', 'org.jooq.jooq-codegen-gradle').versionRef('jooq')
+
+            library('flyway-postgresql', 'org.flywaydb', 'flyway-database-postgresql').versionRef('flyway')
+
+            library('jooq-core', 'org.jooq', 'jooq').versionRef('jooq')
+
+            library('postgresql', 'org.postgresql', 'postgresql').versionRef('postgresql')
+
+            library('testcontainers-postgres', 'org.testcontainers', 'postgresql').versionRef('testcontainers')
+            library('testcontainers-junit', 'org.testcontainers', 'junit-jupiter').versionRef('testcontainers')
+
+            library('spring-boot-jooq', 'org.springframework.boot', 'spring-boot-starter-jooq').versionRef('spring-boot')
+            library('spring-boot-test-devtools', 'org.springframework.boot', 'spring-boot-devtools').versionRef('spring-boot')
+            library('spring-boot-test-starter', 'org.springframework.boot', 'spring-boot-starter-test').versionRef('spring-boot')
+            library('spring-boot-test-testcontainers', 'org.springframework.boot', 'spring-boot-testcontainers').versionRef('spring-boot')
+        }
+    }
+}
