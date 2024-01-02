@@ -43,13 +43,13 @@ java.sourceCompatibility = 17
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-jooq:$spring_boot_version"
 
-//    Dependencies required for the application to use jooq and flyway in runtime.
+//  Dependencies required for the application to use jooq and flyway in runtime.
     implementation "org.flywaydb:flyway-database-postgresql:$flyway_version"
     implementation "org.jooq:jooq:$jooq_version"
 
-//    Your database driver
+//  Your database driver
     runtimeOnly "org.postgresql:postgresql:$postgres_version"
-//    Database driver for the build time.
+//  Database driver for the build time.
     jooqCodegen "org.postgresql:postgresql:$postgres_version"
 
     testImplementation "org.springframework.boot:spring-boot-devtools:$spring_boot_version"
@@ -78,7 +78,7 @@ tasks.withType(Javadoc) {
 test {
     useJUnitPlatform()
 
-//    This block is only necessary if you want to reuse container for the tests.
+//  This is only necessary if you want to reuse container for the tests.
     usesService dbContainerProvider
     doFirst {
         def dbContainer = dbContainerProvider.get().container
@@ -86,31 +86,47 @@ test {
         systemProperty('spring.datasource.username', dbContainer.username)
         systemProperty('spring.datasource.password', dbContainer.password)
     }
-//    End of block
 }
 
 flywayMigrate {
-//    We need access to our database during the build.
+//  We need access to our database during the build.
     usesService dbContainerProvider
-//    Define location of the migrations.
+//  Define location of the migrations.
     locations = ["filesystem:src/main/resources/db/migration"]
-//    Flyway plugin won't define input files for us, so to follow Gradle convention define them.
+//  Flyway plugin won't define input files for us, so to follow Gradle convention define them.
     inputs.files(fileTree("src/main/resources/db/migration"))
 
     doFirst {
         def dbContainer = dbContainerProvider.get().container
-//        Set up the flyway config.
+//      Set up the flyway config.
         url = dbContainer.jdbcUrl
         user = dbContainer.username
         password = dbContainer.password
+    }
+}
 
-//        As jOOQ and flyway must run together, configure jOOQ db connection.
-        configureJooq(dbContainer)
+afterEvaluate {
+//  For jOOQ to run we always need for flyway to be completed before.
+    jooqCodegen.dependsOn flywayMigrate
+    jooqCodegen {
+        doFirst {
+            def dbContainer = dbContainerProvider.get().container
+            jooq {
+                configuration {
+                    jdbc {
+                        driver = "org.postgresql.Driver"
+                        url = dbContainer.jdbcUrl
+                        user = dbContainer.username
+                        password = dbContainer.password
+                    }
+                }
+            }
+        }
     }
 }
 
 jooq {
-//    jOOQ generation config
+//  jOOQ generation config
     configuration {
         logging = org.jooq.meta.jaxb.Logging.WARN
         generator {
@@ -127,28 +143,6 @@ jooq {
             }
         }
     }
-}
-
-/**
- * Configure the jOOQ db connection.
- * @param dbContainer container with connection configuration.
- */
-private CodegenPluginExtension configureJooq(dbContainer) {
-    jooq {
-        configuration {
-            jdbc {
-                driver = "org.postgresql.Driver"
-                url = dbContainer.jdbcUrl
-                user = dbContainer.username
-                password = dbContainer.password
-            }
-        }
-    }
-}
-
-afterEvaluate {
-//    For jOOQ to run we always need for flyway to be up and running.
-    jooqCodegen.dependsOn flywayMigrate
 }
 
 /**
