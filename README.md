@@ -1,6 +1,6 @@
 # Working with jOOQ and Flyway using Testcontainers & Gradle Guide
 
-This is a fork of [an original](https://github.com/testcontainers/tc-guide-working-with-jooq-flyway-using-testcontainers) Flyway guide intended to show how to use Flyway with Gradle
+This is a fork of [an original](https://github.com/testcontainers/tc-guide-working-with-jooq-flyway-using-testcontainers) Flyway guide intended to show how to use Flyway with Gradle. Check out my [blog post](https://sergeylappo.github.io/posts/gradle-jooq-flyway-testcontainers/) to learn more.
 The only important changes are replacing the build configuration with Gradle.
 
 ## 1. Setup Environment
