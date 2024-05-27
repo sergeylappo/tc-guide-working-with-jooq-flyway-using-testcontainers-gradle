@@ -1,7 +1,7 @@
 package com.testcontainers.demo.domain;
 
 import static com.testcontainers.demo.jooq.Tables.COMMENTS;
-import static com.testcontainers.demo.jooq.tables.Posts.POSTS;
+import static com.testcontainers.demo.jooq.Tables.POSTS;
 import static org.jooq.Records.mapping;
 import static org.jooq.impl.DSL.multiset;
 import static org.jooq.impl.DSL.row;

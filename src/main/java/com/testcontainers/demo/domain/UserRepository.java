@@ -1,6 +1,6 @@
 package com.testcontainers.demo.domain;
 
-import static com.testcontainers.demo.jooq.tables.Users.USERS;
+import static com.testcontainers.demo.jooq.Tables.USERS;
 import static org.jooq.Records.mapping;
 
 import java.time.LocalDateTime;
