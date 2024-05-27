@@ -68,6 +68,7 @@ Provider<PostgresService> dbContainerProvider = project.getGradle()
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+    dependsOn jooqCodegen
 }
 
 tasks.withType(Javadoc).configureEach {
