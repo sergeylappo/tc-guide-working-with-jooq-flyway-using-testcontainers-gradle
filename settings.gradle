@@ -7,11 +7,11 @@ rootProject.name = 'tc-guide-working-with-jooq-flyway-using-testcontainers-gradl
 dependencyResolutionManagement {
     versionCatalogs {
         libs {
-            version('flyway', '10.4.0')
-            version('testcontainers', '1.19.3')
-            version('jooq', '3.19.1')
-            version('spring-boot', '3.2.1')
-            version('postgresql', '42.7.1')
+            version('flyway', '10.15.0')
+            version('testcontainers', '1.19.8')
+            version('jooq', '3.19.10')
+            version('spring-boot', '3.3.1')
+            version('postgresql', '42.7.3')
 
             plugin('flyway', 'org.flywaydb.flyway').versionRef('flyway')
             plugin('jooq', 'org.jooq.jooq-codegen-gradle').versionRef('jooq')
