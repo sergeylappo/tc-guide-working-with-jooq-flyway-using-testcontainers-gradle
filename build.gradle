@@ -32,7 +32,12 @@ repositories {
 group = 'com.sergeylappo.testcontainers'
 version = '1.0.0-SNAPSHOT'
 description = 'tc-guide-working-with-jooq-flyway-using-testcontainers-gradle'
-java.sourceCompatibility = 17
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 dependencies {
     implementation libs.bundles.spring.boot
