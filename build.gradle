@@ -3,10 +3,6 @@ import org.gradle.api.services.BuildServiceParameters
 import org.gradle.api.services.BuildService
 
 buildscript {
-    repositories {
-        mavenCentral()
-    }
-
     dependencies {
 //      Required dependencies to start testcontainers and do the migration during the build.
         classpath libs.testcontainers.postgres
